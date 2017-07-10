@@ -1,5 +1,8 @@
-require "requester/version"
-
 module Requester
-  # Your code goes here...
 end
+
+require 'requester/version'
+require 'requester/config'
+require 'requester/logger'
+require 'requester/requests'
+require 'requester/railtie'
