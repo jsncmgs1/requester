@@ -1,3 +1,6 @@
+# This will be a gem. It's not done. In fact, I don't even know what I will call it yet. Don't use this.
+
+
 # Requester
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/requester`. To experiment with that code, run `bin/console` for an interactive prompt.
