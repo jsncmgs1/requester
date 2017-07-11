@@ -14,6 +14,14 @@ RSpec.describe Requester::Config do
     it 'uses es6 exports' do
       expect(described_class.export_type).to eq(:es6)
     end
+
+    it 'has an empty array for additional_response_attributes' do
+      expect(described_class.additional_response_attributes).to eq([])
+    end
+
+    it 'has an empty array for additional_request_attributes' do
+      expect(described_class.additional_request_attributes).to eq([])
+    end
   end
 
   describe '.back_end_path' do

@@ -2,7 +2,7 @@ require_relative 'config'
 
 module Requester
   class Request
-    def self.generate(request, options)
+    def self.generate(request, **options)
       new(request, options).json
     end
 
@@ -12,14 +12,18 @@ module Requester
       @json = {
         path: request.fullpath,
         method: request.method
-      }.with_indifferent_access
+      }
     end
 
     def json
       @json.tap do |json|
-        json[:request_parameters] = @request.request_parameters if @request.request_parameters.present?
-        json[:query_string] = @request.query_string if @request.query_string.present?
-        json[:media_type] = @request.media_type if @request.media_type.present?
+        json[:request_parameters] = @request.request_parameters if @request.request_parameters
+        json[:query_string] = @request.query_string if @request.query_string
+        json[:media_type] = @request.media_type if @request.media_type
+
+        Requester::Config.additional_request_attributes.each do |attr|
+          json[attr] = @request.public_send(attr)
+        end
       end
     end
   end

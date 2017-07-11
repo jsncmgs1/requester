@@ -21,17 +21,33 @@ module Requester
         end
       end
 
+      def additional_request_attributes
+        @additional_request_attributes ||= []
+      end
+
+      def additional_response_attributes
+        @additional_response_attributes ||= []
+      end
+
+      def additional_request_attributes=(*args)
+        @additional_request_attributes = args.flatten
+      end
+
+      def additional_response_attributes=(*args)
+        @additional_response_attributes = args.flatten
+      end
+
       def back_end_path
         dir = library == :rspec ? 'spec' : 'test'
         File.join(Rails.root, dir)
       end
 
       def file_name
-        @file_name || 'responses.js'
+        @file_name ||= 'responses.js'
       end
 
       def library
-        @library || :rspec
+        @library ||= :rspec
       end
 
       def export_type

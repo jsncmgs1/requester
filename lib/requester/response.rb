@@ -1,6 +1,5 @@
 module Requester
   class Response
-    attr_reader :json
 
     def self.generate(response, **options)
       new(response, options).json
@@ -13,7 +12,15 @@ module Requester
         status: response.status,
         body: JSON.parse(response.body),
         message: response.message
-      }.with_indifferent_access
+      }
+    end
+
+    def json
+      @json.tap do |json|
+        Requester::Config.additional_response_attributes.each do |attr|
+          json[attr] = @response.public_send(attr)
+        end
+      end
     end
   end
 end
