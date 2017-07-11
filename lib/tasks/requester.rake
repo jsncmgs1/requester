@@ -11,13 +11,13 @@ task :requester do
   command += " #{ARGV[1..-1].join(' ')}"
 
   puts(<<-COMMAND)
-      \n *********************************************************
-      \n Running requester using #{Requester::Config.library}
-      \n Command: "#{command.rstrip}"
-      \n *********************************************************
-      \n
+    \n *********************************************************
+    \n Running requester using command :#{command.rstrip}
+    \n *********************************************************
+    \n
   COMMAND
 
   system(command)
+
   ENV['REQUESTER'] = nil
 end

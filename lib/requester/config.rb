@@ -3,13 +3,18 @@ module Requester
     class RequesterConfigError < StandardError; end
 
     class << self
-      attr_accessor :front_end_path,
-        :back_end_path,
+      attr_accessor :back_end_path,
         :file_name,
         :library
 
+      attr_reader :front_end_path
+
       def initialize(&block)
         class_exec(self, &block)
+      end
+
+      def front_end_path=(path)
+        @front_end_path = path
 
         unless valid_path_to_front_end_app?
           raise RequesterConfigError, config_error
