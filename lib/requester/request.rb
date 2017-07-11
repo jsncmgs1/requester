@@ -2,11 +2,11 @@ require_relative 'config'
 
 module Requester
   class Request
-    def self.generate(request, **options)
-      new(request, options).json
+    def self.generate(request)
+      new(request).json
     end
 
-    def initialize(request, **options)
+    def initialize(request)
       @request = request
       @config = Requester::Config
       @json = {

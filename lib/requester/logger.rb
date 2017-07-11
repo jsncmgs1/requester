@@ -9,38 +9,14 @@ module Requester
       end
 
       def log_response(response, controller, **options)
-        c_name = controller.controller_name
-        a_name = controller.action_name
-        log_as = options[:log_as]
-
-        log[c_name] ||= {}
-        log[c_name][a_name] ||= {}
-
-        json = Requester::Response.generate(response, options)
-
-        if options[:log_as]
-          log[c_name][a_name][log_as] ||= {}
-          log[c_name][a_name][log_as]['response'] = json
-        else
-          log[c_name][a_name]['response'] = json
+        write('response', controller, options) do
+          Requester::Response.generate(response)
         end
       end
 
       def log_request(request, controller, **options)
-        c_name = controller.controller_name
-        a_name = controller.action_name
-        log_as = options[:log_as]
-
-        log[c_name] ||= {}
-        log[c_name][a_name] ||= {}
-
-        json = Requester::Request.generate(request, options)
-
-        if log_as
-          log[c_name][a_name][log_as] ||= {}
-          log[c_name][a_name][log_as]['request'] = json
-        else
-          log[c_name][a_name]['request'] = json
+        write('request', controller, options) do
+          Requester::Request.generate(request)
         end
       end
 
@@ -71,6 +47,24 @@ module Requester
       end
 
       private
+
+      def write(request_or_response, controller, **options, &block)
+        c_name = controller.controller_name
+        a_name = controller.action_name
+        log_as = options[:log_as]
+
+        log[c_name] ||= {}
+        log[c_name][a_name] ||= {}
+
+        json = block.call
+
+        if log_as
+          log[c_name][a_name][log_as] ||= {}
+          log[c_name][a_name][log_as][request_or_response] ||= json
+        else
+          log[c_name][a_name][request_or_response] ||= json
+        end
+      end
 
       def es6_export
         "//#{Time.zone.now}\n\nexport default "

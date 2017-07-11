@@ -1,13 +1,14 @@
+require 'json'
+
 module Requester
   class Response
 
-    def self.generate(response, **options)
-      new(response, options).json
+    def self.generate(response)
+      new(response).json
     end
 
-    def initialize(response, **options)
+    def initialize(response)
       @response = response
-      @config = Requester::Config
       @json = {
         status: response.status,
         body: JSON.parse(response.body),

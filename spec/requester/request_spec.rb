@@ -1,16 +1,6 @@
 require "spec_helper"
 
 RSpec.describe Requester::Request do
-  FakeRequest = Struct.new('Request',
-    :fullpath,
-    :method,
-    :request_parameters,
-    :query_string,
-    :media_type,
-    :random_attr_one,
-    :random_attr_two
-  )
-
   describe '.generate' do
     it 'creates a json object with path and method attributes' do
       request = FakeRequest.new('/foo', 'GET')

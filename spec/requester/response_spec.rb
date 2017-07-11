@@ -1,25 +1,14 @@
 require 'spec_helper'
+require 'json'
 
 RSpec.describe Requester::Response do
-  FakeResponse = Struct.new('Request',
-    :status,
-    :body,
-    :message,
-    :random_attr_one,
-    :random_attr_two
-  )
-
-  class JSON
-    def self.parse(string); string end
-  end
-
   describe '.generate' do
     it 'creates a json object with status, body, and message attributes' do
-      response = FakeResponse.new(200, {foo: 'bar'}, 'Winter is coming')
+      response = FakeResponse.new(200, "{\"foo\":\"bar\"}", 'Winter is coming')
       actual = described_class.generate(response)
       expected = {
         status: 200,
-        body: {:foo => 'bar'},
+        body: {'foo' => 'bar'},
         message: 'Winter is coming'
       }
 
@@ -30,7 +19,7 @@ RSpec.describe Requester::Response do
       Requester::Config.additional_response_attributes = :random_attr_one, :random_attr_two
       response = FakeResponse.new(
         200,
-        {foo: 'bar'},
+        "{\"foo\":\"bar\"}",
         'Winter is coming',
         'extra value one',
         'extra value two'
@@ -40,7 +29,7 @@ RSpec.describe Requester::Response do
 
       expected = {
         status: 200,
-        body: {:foo => 'bar'},
+        body: {'foo' => 'bar'},
         message: 'Winter is coming',
         random_attr_one: 'extra value one',
         random_attr_two: 'extra value two'
