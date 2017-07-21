@@ -3,13 +3,15 @@ module Requester
     class RequesterConfigError < StandardError; end
 
     class << self
-      attr_accessor :back_end_path,
-        :file_name,
-        :library
-
-      attr_reader :front_end_path
+      attr_accessor :file_name, :library
+      attr_reader :front_end_path, :additional_response_attributes, :additional_request_attributes
 
       def initialize(&block)
+        @file_name = 'responses.js'
+        @library = :rspec
+        @additional_request_attributes = []
+        @additional_response_attributes = []
+
         class_exec(self, &block)
       end
 
@@ -19,14 +21,6 @@ module Requester
         unless valid_path_to_front_end_app?
           raise RequesterConfigError, config_error
         end
-      end
-
-      def additional_request_attributes
-        @additional_request_attributes ||= []
-      end
-
-      def additional_response_attributes
-        @additional_response_attributes ||= []
       end
 
       def additional_request_attributes=(*args)
@@ -40,14 +34,6 @@ module Requester
       def back_end_path
         dir = library == :rspec ? 'spec' : 'test'
         File.join(Rails.root, dir)
-      end
-
-      def file_name
-        @file_name ||= 'responses.js'
-      end
-
-      def library
-        @library ||= :rspec
       end
 
       def export_type

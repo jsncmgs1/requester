@@ -2,6 +2,10 @@ require "spec_helper"
 require 'rspec/mocks'
 
 RSpec.describe Requester::Config do
+  before do
+    described_class.initialize {}
+  end
+
   describe 'default attributes' do
     it 'uses rspec' do
       expect(described_class.library).to eq(:rspec)
