@@ -9,8 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jason Cummings"]
   spec.email         = []
 
-  spec.summary       = %q{ foo }
-  spec.description   = %q{ foo }
+  spec.summary   = %q{Requester coordinates json api requests and responses
+  between the server test suite and the client test suite in Rails-based web
+  applications.}
+
   spec.homepage      = "https://github.com/jsncmgs1/requester"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -23,6 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "pry"
-  spec.add_dependency 'rails', '~> 5.0'
+  spec.add_dependency "railties", ">= 4.0"
 end
