@@ -1,5 +1,3 @@
-# This will be a gem. It's not released yet.
-
 # Requester
 
 ## What is Requester?
@@ -248,11 +246,18 @@ When you want to capture data, run `rake requester`.
 
 ## Setup
 
+Install requester in your development and test groups
+
+```ruby
+gem 'requester'
+```
+
 The minimum required configuration is to tell Requester where you want the JSON
 dump to be stored for your front end:
 
 ```ruby
-# rails_helper.rb
+# rails_helper.rb for RSpec
+# test_helper.rb for rails default
 
 Requester::Config.initialize do |config|
   config.front_end_path = '/Users/you/code/my_ui/tests'
@@ -350,7 +355,7 @@ RSpec.describe DecksController, type: :request do
     it "works! (now write some real specs)" do
       get decks_path
 
-      Requester::Requests.log_data(
+      Requester.log_data(
         request: request,
         response: response,
         controller: controller
