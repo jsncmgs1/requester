@@ -9,7 +9,7 @@ task :requester do
 
   puts(<<-COMMAND)
     \n *********************************************************
-    \n Running requester using command :#{command.rstrip}
+    \n Running requester using command: #{command.rstrip}
     \n *********************************************************
     \n
   COMMAND

@@ -8,7 +8,7 @@ module Requester
 
     REQUEST_TYPES.each do |method|
       define_method(method) do |*args, **options|
-        super(*args)
+        super(*args, **options)
         log_data(options) if ENV['REQUESTER']
       end
     end
