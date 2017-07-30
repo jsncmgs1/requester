@@ -19,10 +19,10 @@ Requester can be used with Rails API and any front end framework.
 ## Why would you want this?
 
 Many web applications with extensive front-end rendering test the front-end
- independently from the relied upon server-side api.  In these siutations, changes to the 
+ independently from the relied upon server-side api.  In these siutations, changes to the
 server-side api may go unnoticed by the front-end test suite leading to
-an a green test suite but a broken app.  Additionally, when an api change is 
-communicated to the front-end team, effort is needed to ensure that the 
+an a green test suite but a broken app.  Additionally, when an api change is
+communicated to the front-end team, effort is needed to ensure that the
 test suite api is mocked correctly.  Requester aims to save that effort
 and provide more transparency to api changes.
 
@@ -263,7 +263,6 @@ end
 
 * `file_name`: By default this is set to `'responses.js'`. If you want
 to use something different, set it here.
-* `library`: defaults to `:rspec`. If you want to use the rails default, set to `:test_unit`.
 * `additional_request_attributes`: By default the the following methods are called/logged on the request object:
  - `path`, `method`, `request_parameters`, `query_string`, `media_type`.
  You can add additional methods to be logged here.
@@ -275,8 +274,8 @@ to use something different, set it here.
 # rails_helper.rb
 
 Request::Config.initialize do |config|
-  config.library = :test_unit
-  config.additional_request_attributes = [:ssl?, :ip]
+  config.file_name = 'rails_responses.js'
+  config.additional_request_attributes = [:ssl?]
   config.additional_response_attributes = [:headers, :cookies]
 end
 ```

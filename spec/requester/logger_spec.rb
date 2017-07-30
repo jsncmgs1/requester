@@ -3,6 +3,7 @@ require 'spec_helper'
 RSpec.describe Requester::Logger do
   describe '.log_response' do
     before do
+      Requester::Config.initialize {}
       described_class.instance_variable_set(:@log, {})
     end
 
@@ -75,6 +76,7 @@ RSpec.describe Requester::Logger do
       File.delete(back_end_path) if File.exist?(back_end_path)
 
       allow(Requester::Config).to receive(:back_end_path) { path + '/back_end_path' }
+      allow(Requester::Config).to receive(:front_end_path) { path + '/front_end_path' }
       allow(Requester::Config).to receive(:front_end_path) { path + '/front_end_path' }
 
       controller = FakeController.new('index', 'users')

@@ -3,12 +3,11 @@ module Requester
     class RequesterConfigError < StandardError; end
 
     class << self
-      attr_accessor :file_name, :library
+      attr_accessor :file_name
       attr_reader :front_end_path, :additional_response_attributes, :additional_request_attributes
 
       def initialize(&block)
         @file_name = 'responses.js'
-        @library = :rspec
         @additional_request_attributes = []
         @additional_response_attributes = []
 
@@ -32,7 +31,7 @@ module Requester
       end
 
       def back_end_path
-        dir = library == :rspec ? 'spec' : 'test'
+        dir = defined?(RSpec) ? 'spec' : 'test'
         File.join(Rails.root, dir)
       end
 

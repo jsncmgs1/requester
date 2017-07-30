@@ -7,10 +7,6 @@ RSpec.describe Requester::Config do
   end
 
   describe 'default attributes' do
-    it 'uses rspec' do
-      expect(described_class.library).to eq(:rspec)
-    end
-
     it 'names the js output "responses.js"' do
       expect(described_class.file_name).to eq('responses.js')
     end
@@ -37,11 +33,6 @@ RSpec.describe Requester::Config do
     it 'points to the spec folder when using RSpec' do
       expect(described_class.back_end_path).to eq('/Users/me/code/some_project/spec')
     end
-
-    it 'points to test when not using RSpec' do
-      described_class.library = :foo
-      expect(described_class.back_end_path).to eq('/Users/me/code/some_project/test')
-    end
   end
 
   describe '.front_end_path' do
@@ -54,10 +45,10 @@ RSpec.describe Requester::Config do
   describe '.initialization' do
     it 'yields the class for configuration' do
       described_class.initialize do |config|
-        config.library = :foo
+        config.file_name = 'foo'
       end
 
-      expect(described_class.library).to eq(:foo)
+      expect(described_class.file_name).to eq('foo')
     end
   end
 end

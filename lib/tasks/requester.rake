@@ -3,10 +3,7 @@ desc 'Runs your specs and generates a JSON file based on the selected specs'
 task :requester do
   ENV['REQUESTER'] = 'true'
 
-  command = case Requester::Config.library
-            when :rspec then 'rspec'
-            else 'test'
-            end
+  command = defined?(RSpec) ? 'rspec' : 'rails test'
 
   command += " #{ARGV[1..-1].join(' ')}"
 
